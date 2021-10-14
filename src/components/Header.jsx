@@ -1,15 +1,20 @@
-import React, {useState} from 'react'
+import React from 'react';
+import {Navbar, Nav, Container, Button} from 'react-bootstrap';
 
-const Header = () => {
-    const [darkMode, setDarkMode] = useState(false);
-    const handleClick = () => {
-        setDarkMode(!darkMode)
-    }
+const Header = props => {
     return(
-        <div className="Header">
-            <h1>React Hooks</h1>
-            <button type="button" onClick={handleClick}>{darkMode ? 'Dark Mode' : 'Light Mode'}</button>
-        </div>
+            <Navbar>
+            <Container>
+                <Navbar.Brand style={{color: props.darkMode ? 'white' : 'black'}}>React Hooks</Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="me-auto"></Nav>
+                <Nav>
+                    <Button type="button" onClick={props.onClick} variant={props.darkMode ? 'light' : 'dark'}>{props.darkMode ? 'Dark Mode' : 'Light Mode'}</Button>
+                </Nav>
+                </Navbar.Collapse>
+            </Container>
+          </Navbar>
     );
 }
 
