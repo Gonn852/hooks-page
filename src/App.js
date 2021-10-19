@@ -11,8 +11,8 @@ function App() {
   return (
     <ThemeContext.Provider value={darkMode}>
       <div className={"App "+ bg}>
-        <Header darkMode={darkMode} onClick={() => setDarkMode(!darkMode)}/>
-        <Personajes darkMode={darkMode}></Personajes>
+        <Header onClick={() => setDarkMode(!darkMode)}/>
+        <Personajes></Personajes>
       </div>
     </ThemeContext.Provider>
   );
