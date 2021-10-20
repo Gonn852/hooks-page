@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Navbar, Nav, Container, Button} from 'react-bootstrap';
-import ThemeContext from './context/ThemeContext';
+import ThemeContext from '../context/ThemeContext';
 
 const Header = props => {
     const darkMode = useContext(ThemeContext)

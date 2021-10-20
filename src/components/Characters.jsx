@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useContext, useReducer} from 'react';
+import React, {useState, useEffect, useContext, useReducer, useMemo, useRef, useCallback} from 'react';
 import {Card, Button, Figure, Col, Form, Row} from 'react-bootstrap';
-import ThemeContext from './context/ThemeContext';
+import ThemeContext from '../context/ThemeContext';
+import Search from './Search';
 
 const initialState = {
     favorites: []
@@ -23,6 +24,7 @@ const Characters = (props) => {
     const [characters, setCharacters] = useState([]);
     const [favorites, dispatch] = useReducer(favoritesReducer, initialState);
     const [search, setSearch] = useState('');
+    const searchInput = useRef(null);
 
     useEffect(() => {
         fetch('https://rickandmortyapi.com/api/character/')
@@ -39,13 +41,23 @@ const Characters = (props) => {
         })
     }
 
-    const handleSearch = event => {
-        setSearch(event.target.value);
-    }
+    //const handleSearch = () => {
+    //    setSearch(searchInput.current.value);
+    //}
 
-    const filteredCharacters = characters.filter((character) => {
-        return character.name.toLowerCase().includes(search.toLowerCase())
-    })
+    const handleSearch = useCallback(()=>{
+        setSearch(searchInput.current.value);
+    }, [])
+
+    //const filteredCharacters = characters.filter((character) => {
+    //   return character.name.toLowerCase().includes(search.toLowerCase())
+    //})
+
+    const filteredCharacters = useMemo(() => 
+        characters.filter((character) => {
+            return character.name.toLowerCase().includes(search.toLowerCase())
+            }), [characters, search]
+    );
 
     return(
         <div className="container" style={{marginTop: 25}}>
@@ -66,7 +78,7 @@ const Characters = (props) => {
                             <h1 style={{textAlign:'left'}}>Characters</h1>
                         </Col>
                         <Col>
-                            <Form.Control type="text" value={search} onChange={handleSearch} placeholder="Search..."/>
+                            <Search search={search} searchInput={searchInput} handleSearch={handleSearch}></Search>
                         </Col>
                     </Row>
                 </Form>
