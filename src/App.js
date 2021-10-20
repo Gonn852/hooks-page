@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import Header from './components/Header';
-import Personajes from './components/Personajes';
+import Characters from './components/Characters';
 import ThemeContext from './components/context/ThemeContext';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <ThemeContext.Provider value={darkMode}>
       <div className={"App "+ bg}>
         <Header onClick={() => setDarkMode(!darkMode)}/>
-        <Personajes></Personajes>
+        <Characters></Characters>
       </div>
     </ThemeContext.Provider>
   );
