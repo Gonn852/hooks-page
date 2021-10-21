@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useContext, useReducer, useMemo, useRef, useCallback} from 'react';
+import React, {useState, useContext, useReducer, useMemo, useRef, useCallback} from 'react';
 import {Card, Button, Figure, Col, Form, Row} from 'react-bootstrap';
 import ThemeContext from '../context/ThemeContext';
 import Search from './Search';
+import useCharacters from '../hooks/useCharacters';
 
 const initialState = {
     favorites: []
@@ -20,17 +21,11 @@ const favoritesReducer = (state, action) => {
 }
 
 const Characters = (props) => {
-
-    const [characters, setCharacters] = useState([]);
     const [favorites, dispatch] = useReducer(favoritesReducer, initialState);
     const [search, setSearch] = useState('');
     const searchInput = useRef(null);
 
-    useEffect(() => {
-        fetch('https://rickandmortyapi.com/api/character/')
-        .then(response => response.json())
-        .then(data => setCharacters(data.results))
-    },[])    
+    const characters = useCharacters('https://rickandmortyapi.com/api/character/'); 
 
     const darkMode = useContext(ThemeContext)
 
